@@ -21,12 +21,12 @@ function Signin() {
     if (getAuth) {
       setAuth(JSON.parse(getAuth));
     }
-    console.log(getAuth)
   },[])
 
 
   function onChange(event) {
     const { name, value } = event.target;
+
 
     setValues({
       ...values,

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export const Container = styled.div`
   margin: 0 auto;
   width: 80%;
-  max-width: 900px;
+  max-width: 1250px;
 
   .content-flex {
     display: flex;

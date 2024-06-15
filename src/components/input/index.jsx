@@ -1,10 +1,10 @@
 import React from 'react'
 
-import  { InputContainer } from './styles.js'
+import * as S from './styles'
 
 function Input({name, type, value, placeholder, onChange,autoComplete}) {
   return (
-    <InputContainer>
+    <S.InputContainer>
     <input 
     value={value}
     onChange={onChange}
@@ -13,7 +13,7 @@ function Input({name, type, value, placeholder, onChange,autoComplete}) {
     placeholder={placeholder}
     autoComplete={autoComplete}
      />
-    </InputContainer>
+    </S.InputContainer>
   )
 }
 

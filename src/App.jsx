@@ -6,10 +6,11 @@ import { AuthContext } from "./context/authContext";
 
 function App() {
   const { auth } = useContext(AuthContext);
-  
+
   return (
     <BrowserRouter>
-       {auth ? <PrivateRoutes /> : <PublicRoutes />}
+      {/* <PublicRoutes /> */}
+      {auth ? <PrivateRoutes /> : <PublicRoutes />}
     </BrowserRouter>
   );
 }
