@@ -9,6 +9,10 @@ export const InputContainer = styled.div`
     margin-bottom: .2rem;
     background-color: #4d38383d;
 
+    &.invalid{
+        border: 1px solid red;
+    }
+    
     &:focus-within {
         border-color: transparent;
         outline: transparent;
@@ -19,6 +23,8 @@ export const InputContainer = styled.div`
         border: none;
         height: 3rem;
         width: 100%;
+
+        
 
         &::placeholder {
             padding-left: 4px;

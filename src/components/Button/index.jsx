@@ -3,9 +3,9 @@ import * as S from './styles'
 
 
 
-function Button({Text, onClick, Type = "button" || "submit"}) {
+function Button({Text, onClick, Type = "button" || "submit",className}) {
   return (
-    <S.Button type={Type} onClick={onClick}>
+    <S.Button type={Type} onClick={onClick} className={className}>
         {Text}
     </S.Button>
   )

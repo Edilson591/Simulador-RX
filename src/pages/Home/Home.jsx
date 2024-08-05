@@ -1,24 +1,27 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useContext } from "react";
 import Button from "../../components/Button";
 import avatarImg from "../../../src/assets/avatar-img.png";
 import useLogout from "../../hooks/useLogout";
-import Modal from "../../components/modal";
-
+import ElementModal from "../../components/modal";
+import { PacientContext } from "../../hooks/pacientContext";
 import * as S from "../Signin/styles";
-
 import * as M from "./styles";
 
 function Home() {
   const [logout, handleLogout] = useLogout(2000);
-
   const [isVisible, setIsVisible] = useState(true);
+  const { namePacient, positionPacient, setNamePacient, setPositionPacient } = useContext(PacientContext);
 
   const handleLogoutClick = () => {
     setIsVisible(!isVisible);
     setTimeout(() => {
       handleLogout();
     }, 2000);
+  };
+
+  const handlePacient = (name) => {
+    setNamePacient(name);
+    console.log(namePacient)
   };
 
   return (
@@ -44,10 +47,10 @@ function Home() {
                   </div>
                   <div className="info-patient">
                     <h2>
-                      name: <span>Anônimo</span>
+                      Name: <span>{namePacient}</span>
                     </h2>
                     <p>
-                      Tipo de exame: <span>Punho D</span>
+                      Tipo de exame: <span>{positionPacient}</span>
                     </p>
                     <p>
                       Dose: <span>1.5msv</span>
@@ -63,8 +66,7 @@ function Home() {
               <M.ContainerDisplay>display</M.ContainerDisplay>
             </section>
           </M.Main>
-          <Modal>
-          </Modal>
+          <ElementModal onCloseModal={handlePacient} isOpen={false} />
         </S.Container>
       ) : (
         <S.Container>

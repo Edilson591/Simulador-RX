@@ -32,11 +32,8 @@ export const Main = styled.div`
   }
   .info-patient {
     width: 250px;
-    /* background-color: white; */
     border-radius: 10px;
-    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
-    /* padding: 15px; */
-    z-index: 1000;
+    z-index: 998;
   }
 `;
 
