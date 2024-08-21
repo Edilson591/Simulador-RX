@@ -10,7 +10,11 @@ import * as M from "./styles";
 function Home() {
   const [logout, handleLogout] = useLogout(2000);
   const [isVisible, setIsVisible] = useState(true);
-  const { namePacient, positionPacient, setNamePacient, setPositionPacient } = useContext(PacientContext);
+  const { namePacient, 
+    positionPacient,
+     setNamePacient, 
+     setPositionPacient,
+     biotype } = useContext(PacientContext);
 
   const handleLogoutClick = () => {
     setIsVisible(!isVisible);
@@ -56,7 +60,7 @@ function Home() {
                       Dose: <span>1.5msv</span>
                     </p>
                     <p>
-                      Biotipo: <span>Magro</span>
+                      Biotipo: <span>{biotype}</span>
                     </p>
                   </div>
                 </div>

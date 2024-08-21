@@ -12,10 +12,15 @@ function ElementModal({ onCloseModal, isOpen }) {
   const [values, setValues] = useState({ namePacient: "" });
   const [isTouch, setisTouch] = useState(false);
   const [error, setError] = useState('');
-  const [valueSelect, setSelectValue] = useState("");
+  const [valueSelectPosition, setSelectValuePosition] = useState("");
+  const [valueSelectBiotype, setSelectValueBiotype] = useState("");
   const [modalIsOpen, setIsOpen] = useState(true);
   const [isDisabled, setIsDisable] = useState(false);
-  const {namePacient,setNamePacient,setPositionPacient} = useContext(PacientContext);
+  const {namePacient,
+    setNamePacient,
+    setPositionPacient,
+    biotype,
+    setBiotype} = useContext(PacientContext);
  
 
   function onChange(event) {
@@ -36,13 +41,21 @@ function ElementModal({ onCloseModal, isOpen }) {
     }
   }
   function closeModal() {
-    if (values.namePacient.length > 2 && valueSelect.length > 1 || isDisabled) {
-      setPositionPacient(valueSelect);
-      setNamePacient(values.namePacient);
-      onCloseModal(values.namePacient || "Anônimo",valueSelect);
-      setIsOpen(false);
-    }else {
+    if(values.namePacient.trim() === "" && !isDisabled) {
+      // handleBlur()
       return alert("Digite todas as informações necessarias corretamente")
+    }
+    if (values.namePacient.length > 2 || isDisabled) {
+      if(valueSelectPosition.length > 1 &&
+        valueSelectBiotype.length > 1 ){
+          setPositionPacient(valueSelectPosition);
+          setBiotype(valueSelectBiotype);
+          setNamePacient(values.namePacient);
+          onCloseModal(values.namePacient || "Anônimo",valueSelectPosition);
+          setIsOpen(false);
+        }else {
+          return alert("Digite todas as informações necessarias corretamente")
+        }
     }
 
     
@@ -55,8 +68,11 @@ function ElementModal({ onCloseModal, isOpen }) {
     setError('');
   };
 
-  const handleChangeSelect = (select) => {
-    setSelectValue(select.value)
+  const handleChangeSelectPosition = (select) => {
+    setSelectValuePosition(select.value)
+  };
+  const handleChangeSelectBiotype = (select) => {
+    setSelectValueBiotype(select.value)
   };
 
   return (
@@ -101,10 +117,22 @@ function ElementModal({ onCloseModal, isOpen }) {
                 </div>
               </div>
               <OptionSelect 
-              value={valueSelect}
-              onChange={handleChangeSelect}
+              value={valueSelectPosition}
+              onChange={handleChangeSelectPosition}
               label="Escolha uma posição: "
-              classNamePrefix="Select" />
+              options="position"
+              classNamePrefix="Select" 
+              onBlur={handleBlur}
+              className={isTouch && error ? 'invalid' : 'notInvalid'}/>
+              <OptionSelect
+              value={valueSelectBiotype}
+              onChange={handleChangeSelectBiotype}
+              label="Escolha um tipo de corpo: "
+              options="biotipo"
+              classNamePrefix="Select"
+              onBlur={handleBlur}
+              className={isTouch && error ? 'invalid' : 'notInvalid'}
+              />
             </div>
           </form>
           <Button

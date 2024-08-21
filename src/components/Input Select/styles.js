@@ -2,14 +2,22 @@ import styled from "styled-components";
 import Select from "react-select";
 
 export const ContainerControlSelect = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 1rem;
-    max-width: 400px;
-`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  max-width: 400px;
+`;
 
 export const ContainerSelect = styled(Select)`
+    &.invalid{
+        border: 1px solid red;
+    }
+    
+    &:focus-within {
+        border-color: transparent;
+        outline: transparent;
+    }
   .Select__control {
     height: 40px;
     width: 100%;
@@ -40,9 +48,9 @@ export const ContainerSelect = styled(Select)`
   }
 
   .Select__option--is-focused {
-    background-color: #c0E10E; 
+    background-color: #c0e10e;
   }
   .Select__option--is-selected {
-    background-color: #E9E84D;
+    background-color: #e9e84d;
   }
 `;
