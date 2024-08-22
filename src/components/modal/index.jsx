@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { PacientContext } from "../../hooks/pacientContext";
 import Modal from "react-modal";
 import Input from "../input";
@@ -8,65 +8,74 @@ import "./styles.css";
 
 Modal.setAppElement("#root");
 
-function ElementModal({ onCloseModal, isOpen = true}) {
-  const [localIsOpen,setLocalIsOpen] = useState(isOpen);
+function ElementModal({ onCloseModal, isOpen = true }) {
+  const [localIsOpen, setLocalIsOpen] = useState(isOpen);
   const [values, setValues] = useState({ namePacient: "" });
   const [isTouch, setIsTouch] = useState(false);
   const [error, setError] = useState('');
   const [valueSelectPosition, setSelectValuePosition] = useState("");
   const [valueSelectBiotype, setSelectValueBiotype] = useState("");
-  const [modalIsOpen, setIsOpen] = useState(true);
   const [isDisabled, setIsDisable] = useState(false);
-  const {namePacient,
-    setNamePacient,
-    setPositionPacient,
-    biotype,
-    setBiotype} = useContext(PacientContext);
- 
+  const { setNamePacient, setPositionPacient, setBiotype } = useContext(PacientContext);
+
+  useEffect(() => {
+    setLocalIsOpen(isOpen);
+    if (isOpen) {
+      resetForm();
+    }
+  }, [isOpen]);
+
+  function resetForm() {
+    setValues({ namePacient: "" });
+    setSelectValuePosition("");
+    setSelectValueBiotype("");
+    setIsDisable(false);
+    setIsTouch(false);
+    setError('');
+  }
 
   function onChange(event) {
     const { name, value } = event.target;
-    setValues(prevValues => ({
-      ...prevValues,
-      [name]: value,
-    }));
+    setValues({ ...values, [name]: value });
   }
 
   function handleBlur() {
-    setisTouch(true);
-    const newValue = values.namePacient.trim()
-    if(newValue === ''){
-      setError("Requerid")
-    }else {
-      setError('')
+    setIsTouch(true);
+    validateName();
+  }
+
+  function validateName() {
+    const trimmedName = values.namePacient.trim();
+    if (trimmedName === '' && !isDisabled) {
+      setError("Campo obrigatório");
+    } else {
+      setError('');
     }
   }
 
   function closeModal() {
-    if(values.namePacient.trim() === "" && !isDisabled) {
-      // handleBlur()
-      return alert("Digite todas as informações necessarias corretamente")
+    if (isFormValid()) {
+      setPositionPacient(valueSelectPosition);
+      setBiotype(valueSelectBiotype);
+      setNamePacient(values.namePacient);
+      onCloseModal(values.namePacient, valueSelectPosition, valueSelectBiotype);
+      setIsDisable(false);
+      setLocalIsOpen(false);
+    } else {
+      alert("Digite todas as informações necessárias corretamente");
     }
-    if (values.namePacient.length > 2 || isDisabled) {
-      if(valueSelectPosition.length > 1 &&
-        valueSelectBiotype.length > 1 ){
-          setPositionPacient(valueSelectPosition);
-          setBiotype(valueSelectBiotype);
-          setNamePacient(values.namePacient);
-          onCloseModal(values.namePacient || "Anônimo",valueSelectPosition);
-          setIsOpen(false);
-        }else {
-          return alert("Digite todas as informações necessarias corretamente")
-        }
-    }
-
-    
   }
+
+  function isFormValid() {
+    return (isDisabled || values.namePacient.trim() !== "") &&
+           valueSelectPosition.length > 1 &&
+           valueSelectBiotype.length > 1;
+  }
+
   const handleCheckbox = () => {
     setNamePacient("Anônimo");
-    setValues({ namePacient: "" })
+    setValues({ namePacient: "" });
     setIsDisable(!isDisabled);
-    setError(false);
     setError('');
   };
 
@@ -79,74 +88,75 @@ function ElementModal({ onCloseModal, isOpen = true}) {
   };
 
   return (
-    <>
-      <Modal
-        isOpen={modalIsOpen}
-        contentLabel="formulario do paciente"
-        className="modal-content"
-        overlayClassName="modal-overlay"
-      >
-        <div className="modal">
-          <h2 className="information-add">
-            Introduza as informações necessarias
-          </h2>
-          <form action="">
-            <div
-            className="infors-input">
-              <div className="optionName">
-                <div className="validPatient">
-                  <label htmlFor="namePacient">Nome:</label>
-                  <Input
-                    type="text"
-                    placeholder="Digite o nome do paciente"
-                    name="namePacient"
-                    id="namePacient"
-                    disabled={isDisabled}
-                    value={values.namePacient}
-                    onChange={onChange}
-                    onBlur={handleBlur}
-                    className={isTouch && error ? 'invalid' : 'notInvalid'}
-                    />
-                    {isTouch && error ? <span style={{ color: 'red', fontSize: '12px' }}>campo obrigatório</span> :''}
-                </div>
-                <div className="anonyPatient">
-                  <label htmlFor="pacientNotInfo">Ignorar</label>
-                  <input
-                    type="checkbox"
-                    id="pacientNotInfo"
-                    onChange={handleCheckbox}
-                    checked={isDisabled}
-                  />
-                </div>
+    <Modal
+      isOpen={localIsOpen}
+      onRequestClose={closeModal}
+      contentLabel="formulario do paciente"
+      className="modal-content"
+      overlayClassName="modal-overlay"
+    >
+      <div className="modal">
+        <h2 className="information-add">
+          Introduza as informações necessárias
+        </h2>
+        <form>
+          <div className="infors-input">
+            <div className="optionName">
+              <div className="validPatient">
+                <label htmlFor="namePacient">Nome:</label>
+                <Input
+                  type="text"
+                  placeholder="Digite o nome do paciente"
+                  name="namePacient"
+                  id="namePacient"
+                  disabled={isDisabled}
+                  value={values.namePacient}
+                  onChange={onChange}
+                  onBlur={handleBlur}
+                  className={isTouch && error ? 'invalid' : 'notInvalid'}
+                />
+                {isTouch && error && (
+                  <span style={{ color: 'red', fontSize: '12px' }}>Campo obrigatório</span>
+                )}
               </div>
-              <OptionSelect 
+              <div className="anonyPatient">
+                <label htmlFor="pacientNotInfo">Ignorar</label>
+                <input
+                  type="checkbox"
+                  id="pacientNotInfo"
+                  onChange={handleCheckbox}
+                  checked={isDisabled}
+                />
+              </div>
+            </div>
+            <OptionSelect
               value={valueSelectPosition}
               onChange={handleChangeSelectPosition}
               label="Escolha uma posição: "
               options="position"
-              classNamePrefix="Select" 
+              classNamePrefix="Select"
               onBlur={handleBlur}
-              className={isTouch && error ? 'invalid' : 'notInvalid'}/>
-              <OptionSelect
+              className={isTouch && !valueSelectPosition ? 'invalid' : 'notInvalid'}
+            />
+            <OptionSelect
               value={valueSelectBiotype}
               onChange={handleChangeSelectBiotype}
               label="Escolha um tipo de corpo: "
               options="biotipo"
               classNamePrefix="Select"
               onBlur={handleBlur}
-              className={isTouch && error ? 'invalid' : 'notInvalid'}
-              />
-            </div>
-          </form>
-          <Button
-            onClick={closeModal}
-            Type="button"
-            Text="Verificar informações"
-            className="button-modal"
-          />
-        </div>
-      </Modal>
-    </>
+              className={isTouch && !valueSelectBiotype ? 'invalid' : 'notInvalid'}
+            />
+          </div>
+        </form>
+        <Button
+          onClick={closeModal}
+          Type="button"
+          Text="Verificar informações"
+          className="button-modal"
+        />
+      </div>
+    </Modal>
   );
 }
 
