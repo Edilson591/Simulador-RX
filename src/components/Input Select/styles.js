@@ -6,11 +6,13 @@ export const ContainerControlSelect = styled.div`
   align-items: center;
   gap: 1rem;
   margin-top: 1rem;
-  max-width: 400px;
+  max-width: 450px;
 `;
 
 export const ContainerSelect = styled(Select)`
+    border: 1px solid transparent;
     &.invalid{
+        box-sizing: border-box;
         border: 1px solid red;
     }
     

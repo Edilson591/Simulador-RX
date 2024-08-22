@@ -12,11 +12,12 @@ function ElementModal({ onCloseModal, isOpen = true }) {
   const [localIsOpen, setLocalIsOpen] = useState(isOpen);
   const [values, setValues] = useState({ namePacient: "" });
   const [isTouch, setIsTouch] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [valueSelectPosition, setSelectValuePosition] = useState("");
   const [valueSelectBiotype, setSelectValueBiotype] = useState("");
   const [isDisabled, setIsDisable] = useState(false);
-  const { setNamePacient, setPositionPacient, setBiotype } = useContext(PacientContext);
+  const { setNamePacient, setPositionPacient, setBiotype } =
+    useContext(PacientContext);
 
   useEffect(() => {
     setLocalIsOpen(isOpen);
@@ -31,7 +32,7 @@ function ElementModal({ onCloseModal, isOpen = true }) {
     setSelectValueBiotype("");
     setIsDisable(false);
     setIsTouch(false);
-    setError('');
+    setError("");
   }
 
   function onChange(event) {
@@ -46,10 +47,10 @@ function ElementModal({ onCloseModal, isOpen = true }) {
 
   function validateName() {
     const trimmedName = values.namePacient.trim();
-    if (trimmedName === '' && !isDisabled) {
+    if (trimmedName === "" && !isDisabled) {
       setError("Campo obrigatório");
     } else {
-      setError('');
+      setError("");
     }
   }
 
@@ -67,16 +68,18 @@ function ElementModal({ onCloseModal, isOpen = true }) {
   }
 
   function isFormValid() {
-    return (isDisabled || values.namePacient.trim() !== "") &&
-           valueSelectPosition.length > 1 &&
-           valueSelectBiotype.length > 1;
+    return (
+      (isDisabled || values.namePacient.trim() !== "") &&
+      valueSelectPosition.length > 1 &&
+      valueSelectBiotype.length > 1
+    );
   }
 
   const handleCheckbox = () => {
     setNamePacient("Anônimo");
     setValues({ namePacient: "" });
     setIsDisable(!isDisabled);
-    setError('');
+    setError("");
   };
 
   const handleChangeSelectPosition = (select) => {
@@ -90,7 +93,7 @@ function ElementModal({ onCloseModal, isOpen = true }) {
   return (
     <Modal
       isOpen={localIsOpen}
-      onRequestClose={closeModal}
+      onRequestClose={handleBlur}
       contentLabel="formulario do paciente"
       className="modal-content"
       overlayClassName="modal-overlay"
@@ -113,10 +116,12 @@ function ElementModal({ onCloseModal, isOpen = true }) {
                   value={values.namePacient}
                   onChange={onChange}
                   onBlur={handleBlur}
-                  className={isTouch && error ? 'invalid' : 'notInvalid'}
+                  className={isTouch && error ? "invalid" : "notInvalid"}
                 />
                 {isTouch && error && (
-                  <span style={{ color: 'red', fontSize: '12px' }}>Campo obrigatório</span>
+                  <span style={{ color: "red", fontSize: "12px" }}>
+                    Campo obrigatório
+                  </span>
                 )}
               </div>
               <div className="anonyPatient">
@@ -136,7 +141,9 @@ function ElementModal({ onCloseModal, isOpen = true }) {
               options="position"
               classNamePrefix="Select"
               onBlur={handleBlur}
-              className={isTouch && !valueSelectPosition ? 'invalid' : 'notInvalid'}
+              className={
+                isTouch && !valueSelectPosition ? "invalid" : "notInvalid"
+              }
             />
             <OptionSelect
               value={valueSelectBiotype}
@@ -145,7 +152,9 @@ function ElementModal({ onCloseModal, isOpen = true }) {
               options="biotipo"
               classNamePrefix="Select"
               onBlur={handleBlur}
-              className={isTouch && !valueSelectBiotype ? 'invalid' : 'notInvalid'}
+              className={
+                isTouch && !valueSelectBiotype ? "invalid" : "notInvalid"
+              }
             />
           </div>
         </form>

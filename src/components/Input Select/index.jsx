@@ -38,6 +38,12 @@ function OptionSelect({ classNamePrefix, options, value, label, onChange,onBlur,
         onBlur={onBlur}
         className={className}
       />
+      {className === "invalid" ? 
+      (<span style={{ color: "red", fontSize: "12px" }}>
+                Campo obrigatório
+        </span>) : ""
+
+      }
     </S.ContainerControlSelect>
   );
 }

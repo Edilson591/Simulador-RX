@@ -8,6 +8,8 @@ export const InputContainer = styled.div`
     border-radius: 0.8rem;
     margin-bottom: .2rem;
     background-color: #4d38383d;
+    border: 1px solid transparent;
+
 
     &.invalid{
         border: 1px solid red;
