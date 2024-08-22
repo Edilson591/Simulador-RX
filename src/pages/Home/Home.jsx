@@ -14,7 +14,8 @@ function Home() {
     positionPacient,
      setNamePacient, 
      setPositionPacient,
-     biotype } = useContext(PacientContext);
+     biotype ,
+     setBiotype} = useContext(PacientContext);
 
   const handleLogoutClick = () => {
     setIsVisible(!isVisible);
@@ -23,9 +24,10 @@ function Home() {
     }, 2000);
   };
 
-  const handlePacient = (name) => {
+  const handlePacient = (name,position,biotype) => {
     setNamePacient(name);
-    console.log(namePacient)
+    setPositionPacient(position);
+    setBiotype(biotype);
   };
 
   return (
@@ -51,7 +53,7 @@ function Home() {
                   </div>
                   <div className="info-patient">
                     <h2>
-                      Name: <span>{namePacient}</span>
+                      Name: <span>{namePacient || "Anônimo"}</span>
                     </h2>
                     <p>
                       Tipo de exame: <span>{positionPacient}</span>
@@ -70,7 +72,7 @@ function Home() {
               <M.ContainerDisplay>display</M.ContainerDisplay>
             </section>
           </M.Main>
-          <ElementModal onCloseModal={handlePacient} isOpen={false} />
+          <ElementModal onCloseModal={handlePacient} isOpen={true} />
         </S.Container>
       ) : (
         <S.Container>
