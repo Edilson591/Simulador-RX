@@ -1,39 +1,70 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Button from "../../components/Button";
 import avatarImg from "../../../src/assets/avatar-img.png";
 import useLogout from "../../hooks/useLogout";
 import ElementModal from "../../components/modal";
+import ConsolePrincipal from "../../components/controls";
 import { PacientContext } from "../../hooks/pacientContext";
 import * as S from "../Signin/styles";
 import * as M from "./styles";
 
 function Home() {
-  const [logout, handleLogout] = useLogout(2000);
+  const [logout, handleLogout] = useLogout();
   const [isVisible, setIsVisible] = useState(true);
-  const { namePacient, 
+  const [modalOpen, setModalOpen] = useState(true);
+  const {
+    namePacient,
     positionPacient,
-     setNamePacient, 
-     setPositionPacient,
-     biotype ,
-     setBiotype} = useContext(PacientContext);
+    setNamePacient,
+    setPositionPacient,
+    biotype,
+    setBiotype,
+  } = useContext(PacientContext);
+  const [kvps, setKvps] = useState(70);
+  const [resetKvp, setResetKvp] = useState(false);
+
+  useEffect(() => {
+    if (modalOpen) {
+      console.log(kvps);
+    }
+  }, [modalOpen]);
 
   const handleLogoutClick = () => {
     setIsVisible(!isVisible);
-    setTimeout(() => {
-      handleLogout();
-    }, 2000);
+    handleLogout();
   };
 
-  const handlePacient = (name,position,biotype) => {
+  const handleResetKvp = () => {
+    setResetKvp(true);
+    setTimeout(() => setResetKvp(false), 0);
+  };
+
+  const handlePacient = (name, position, biotype) => {
     setNamePacient(name);
     setPositionPacient(position);
     setBiotype(biotype);
+    setModalOpen(false);
+  };
+
+  const handleIncrease = (newValue) => {
+    setKvps(newValue);
+  };
+
+  const handleDecrease = (newValue) => {
+    setKvps(newValue);
+  };
+
+  const handleReset = () => {
+    setNamePacient("");
+    setBiotype("");
+    setPositionPacient("");
+    setModalOpen(true);
   };
 
   return (
     <>
       {!logout ? (
-        <S.Container>
+        <S.Container aria-hidden="true">
           <p>Login...</p>
         </S.Container>
       ) : isVisible ? (
@@ -41,7 +72,8 @@ function Home() {
           <M.Header>
             <h1>Simulador de raio x</h1>
             <M.ContainerButton>
-              <Button Text="sair" Type="button" onClick={handleLogoutClick} />
+              <Button Text="Reset" Type="button" onClick={handleResetKvp} />
+              <Button Text="Sair" Type="button" onClick={handleLogoutClick} />
             </M.ContainerButton>
           </M.Header>
           <M.Main>
@@ -53,7 +85,7 @@ function Home() {
                   </div>
                   <div className="info-patient">
                     <h2>
-                      Name: <span>{namePacient || "Anônimo"}</span>
+                      Name: <span>{namePacient}</span>
                     </h2>
                     <p>
                       Tipo de exame: <span>{positionPacient}</span>
@@ -69,10 +101,20 @@ function Home() {
               </div>
             </section>
             <section>
-              <M.ContainerDisplay>display</M.ContainerDisplay>
+              <M.ContainerDisplay>
+                <div className="console-display">
+                  <ConsolePrincipal
+                    kvp={kvps}
+                    onIncrease={handleIncrease}
+                    onDecrease={handleDecrease}
+                    onReset={handleReset}
+                    reset={resetKvp}
+                  />
+                </div>
+              </M.ContainerDisplay>
             </section>
           </M.Main>
-          <ElementModal onCloseModal={handlePacient} isOpen={true} />
+          <ElementModal onCloseModal={handlePacient} isOpen={modalOpen} reset={resetKvp} onReset={handleResetKvp} />
         </S.Container>
       ) : (
         <S.Container>

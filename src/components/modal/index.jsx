@@ -8,7 +8,7 @@ import "./styles.css";
 
 Modal.setAppElement("#root");
 
-function ElementModal({ onCloseModal, isOpen = true }) {
+function ElementModal({ onCloseModal,isOpen}) {
   const [localIsOpen, setLocalIsOpen] = useState(isOpen);
   const [values, setValues] = useState({ namePacient: "" });
   const [isTouch, setIsTouch] = useState(false);
@@ -18,13 +18,18 @@ function ElementModal({ onCloseModal, isOpen = true }) {
   const [isDisabled, setIsDisable] = useState(false);
   const { setNamePacient, setPositionPacient, setBiotype } =
     useContext(PacientContext);
+  const { namePacient } = values
+
 
   useEffect(() => {
-    setLocalIsOpen(isOpen);
-    if (isOpen) {
+    setLocalIsOpen(isOpen)
+  }, [isOpen])
+
+  useEffect(() => {
+    if (localIsOpen) {
       resetForm();
     }
-  }, [isOpen]);
+  }, [localIsOpen]);
 
   function resetForm() {
     setValues({ namePacient: "" });
@@ -37,7 +42,10 @@ function ElementModal({ onCloseModal, isOpen = true }) {
 
   function onChange(event) {
     const { name, value } = event.target;
-    setValues({ ...values, [name]: value });
+    setValues((prev) => ({
+      ...prev,
+      [name]:value
+    }));
   }
 
   function handleBlur() {
@@ -46,7 +54,7 @@ function ElementModal({ onCloseModal, isOpen = true }) {
   }
 
   function validateName() {
-    const trimmedName = values.namePacient.trim();
+    const trimmedName = namePacient.trim();
     if (trimmedName === "" && !isDisabled) {
       setError("Campo obrigatório");
     } else {
@@ -58,25 +66,27 @@ function ElementModal({ onCloseModal, isOpen = true }) {
     if (isFormValid()) {
       setPositionPacient(valueSelectPosition);
       setBiotype(valueSelectBiotype);
-      setNamePacient(values.namePacient);
-      onCloseModal(values.namePacient, valueSelectPosition, valueSelectBiotype);
+      setNamePacient(namePacient);
+      onCloseModal(namePacient, valueSelectPosition, valueSelectBiotype);
       setIsDisable(false);
       setLocalIsOpen(false);
     } else {
       alert("Digite todas as informações necessárias corretamente");
     }
+    if(isDisabled) {
+      setNamePacient("Anônimo");
+    }
   }
 
   function isFormValid() {
     return (
-      (isDisabled || values.namePacient.trim() !== "") &&
+      (isDisabled || namePacient.trim() !== "") &&
       valueSelectPosition.length > 1 &&
       valueSelectBiotype.length > 1
     );
   }
 
   const handleCheckbox = () => {
-    setNamePacient("Anônimo");
     setValues({ namePacient: "" });
     setIsDisable(!isDisabled);
     setError("");
@@ -88,6 +98,7 @@ function ElementModal({ onCloseModal, isOpen = true }) {
 
   const handleChangeSelectBiotype = (select) => {
     setSelectValueBiotype(select.value);
+    
   };
 
   return (
@@ -97,6 +108,8 @@ function ElementModal({ onCloseModal, isOpen = true }) {
       contentLabel="formulario do paciente"
       className="modal-content"
       overlayClassName="modal-overlay"
+      aria-hidden="false" 
+      aria-modal="true"
     >
       <div className="modal">
         <h2 className="information-add">
@@ -113,7 +126,7 @@ function ElementModal({ onCloseModal, isOpen = true }) {
                   name="namePacient"
                   id="namePacient"
                   disabled={isDisabled}
-                  value={values.namePacient}
+                  value={namePacient}
                   onChange={onChange}
                   onBlur={handleBlur}
                   className={isTouch && error ? "invalid" : "notInvalid"}

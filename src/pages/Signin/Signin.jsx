@@ -21,7 +21,7 @@ function Signin() {
     if (getAuth) {
       setAuth(JSON.parse(getAuth));
     }
-  },[])
+  },[setAuth])
 
 
   function onChange(event) {
@@ -41,7 +41,6 @@ function Signin() {
       setAuth(true);
       navagite("/");
       localStorage.setItem('auth', true);
-      alert("usuario logado");
     } else {
       alert("Usuario ou senha esta incorreto");
     }

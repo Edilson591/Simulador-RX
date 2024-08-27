@@ -18,7 +18,7 @@
     .modal {
       background-color: aliceblue;
       width: 40%;
-      min-width: 600px;
+      min-width: 500px;
       padding: 2rem;
       border: 5px solid #251532;
       z-index: 999;
