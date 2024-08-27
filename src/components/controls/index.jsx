@@ -75,7 +75,7 @@ function reducer(state, action) {
     case "DECREASE_MAS":
       if (state.mas >= 0 && state.mas < 10) {
         step = 2;
-      } else if (state.mas >= 10 && state.mas < 50) {
+      } else if (state.mas >= 10 && state.mas <= 50) {
         step = 10;
       } else if (state.mas > 50) {
         step = 20;
