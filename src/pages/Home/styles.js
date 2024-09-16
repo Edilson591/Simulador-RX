@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const ContainerHome = styled.div`
     display: block;
+    padding: 1rem; 
 `
 
 export const Header = styled.div`
@@ -26,6 +27,11 @@ export const Main = styled.div`
   grid-row-gap: 15px;
   border: 1px solid;
 
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
+
+
   .section-user {
     max-width: 300px;
   }
@@ -42,13 +48,15 @@ export const Main = styled.div`
     max-width: 600px;
     padding: 15px;
     height: auto;
-    border-radius: 5%;
-    background-color: #dedede;
+    border-radius: 8px;
+    background-color: #564E58;
 
 
   }
   .info-patient {
-    width: 250px;
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
     border-radius: 10px;
     z-index: 998;
   }

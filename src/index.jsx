@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import Modal from "react-modal";
 import App from "./App.jsx";
 import { BrowserRouter as Router } from 'react-router-dom';
-import GlobalStyles from './styles.js'
+import GlobalStyles from './styles/globalStyles.js'
 
 import AuthProvider from "./context/authContext";
 import { PacientInfoProvider } from "./hooks/pacientContext.jsx";

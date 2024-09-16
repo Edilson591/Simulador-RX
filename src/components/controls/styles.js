@@ -10,7 +10,7 @@ export const ContainerControl = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #ecf0f1;
+    background-color: #564E58;
     border: 1px solid #ddd;
     gap: 1rem;
     padding: 1rem;

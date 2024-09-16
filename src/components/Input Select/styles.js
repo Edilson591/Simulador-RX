@@ -23,13 +23,13 @@ export const ContainerSelect = styled(Select)`
   .Select__control {
     height: 40px;
     width: 100%;
-    border: 1px solid #a1a1a1;
+    border: 1px solid #00ffff;
     border-radius: 0;
     cursor: pointer;
   }
 
   .Select__control:hover {
-    border-color: #a1a1a1;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
   }
 
   .Select__control--is-focused {
@@ -50,9 +50,9 @@ export const ContainerSelect = styled(Select)`
   }
 
   .Select__option--is-focused {
-    background-color: #c0e10e;
+    background-color: #00ffff;
   }
   .Select__option--is-selected {
-    background-color: #e9e84d;
+    background-color: #00bfff;
   }
 `;

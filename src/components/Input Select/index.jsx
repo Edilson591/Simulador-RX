@@ -27,8 +27,8 @@ function OptionSelect({
   ];
   const localOptionsGender = [
     { value: "não informa", label: "não informa"},
-    { value: "Masculino", label: "masculino" },
-    { value: "feminino", label: "feminino" },
+    { value: "Masculino", label: "Masculino" },
+    { value: "Feminino", label: "Feminino" },
   ];
 
   let selectedoptions;

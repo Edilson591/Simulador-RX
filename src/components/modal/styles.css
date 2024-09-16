@@ -6,6 +6,8 @@
     right: 0;
     bottom: 0;
     z-index: 999;
+
+
 }
 .modal-content {
     position: absolute;
@@ -16,11 +18,13 @@
     margin-right: -50%;
     transform: translate(-50%, -50%);
     .modal {
-      background-color: aliceblue;
+      background-color: #EAF0CE;
       width: 100%;
       min-width: 600px;
       padding: 2rem;
       z-index: 999;
+      color: #000;
+      border-radius: 8px;
       h2 {
         padding: 1rem 0;
       }

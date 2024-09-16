@@ -21,7 +21,7 @@ export const ContainerModal = styled.div`
   }
   .modal-content {
     .modal {
-      background-color: aliceblue;
+      background-color: #564E58;
       width: 40%;
       min-width: 300px;
       padding: 2rem;

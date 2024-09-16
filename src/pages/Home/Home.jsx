@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import Button from "../../components/Button";
-import avatarVazio from "../../../src/assets/avatar-vazio.jpg";
+import avatarVazio from "../../../src/assets/avatar-vazio.png";
 import avatarFeminino from "../../../src/assets/avatar-feminino.png";
 import avatarMasculino from "../../../src/assets/avatar-masculino.png";
 import useLogout from "../../hooks/useLogout";
@@ -67,16 +67,8 @@ function Home() {
     setModalOpen(true);
   };
 
-  let avatarPacient;
+  const imgPacient = gender === "Feminino" ? avatarFeminino : gender === "Masculino" ? avatarMasculino : avatarVazio
 
-  switch (avatarPacient) {
-    case "":
-      
-      break;
-  
-    default:
-      break;
-  }
 
   return (
     <>
@@ -98,18 +90,15 @@ function Home() {
               <div className="container-patient">
                 <div className="section-flex">
                   <div className="patient-avatar">
-                    <img src={
-                      gender === "masculino" ?
-                      avatarMasculino
-                      : gender === "feminino" 
-                      ? avatarFeminino
-                      : avatarVazio
-                      } className="avatar-gender" alt="Avatar do Paciente" />
+                    <img src={imgPacient} className="avatar-gender" alt="Avatar do Paciente" />
                   </div>
                   <div className="info-patient">
                     <h2>
                       Name: <span>{namePacient}</span>
                     </h2>
+                    <p>
+                      Sexo: <span>{gender}</span>
+                    </p>
                     <p>
                       Tipo de exame: <span>{positionPacient}</span>
                     </p>
