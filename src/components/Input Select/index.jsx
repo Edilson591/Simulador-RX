@@ -2,7 +2,15 @@ import React from "react";
 import { useState } from "react";
 import * as S from "./styles";
 
-function OptionSelect({ classNamePrefix, options, value, label, onChange,onBlur,className}) {
+function OptionSelect({
+  classNamePrefix,
+  options,
+  value,
+  label,
+  onChange,
+  onBlur,
+  className,
+}) {
   const [selectOptions, setSelectOptions] = useState(value);
   const localOptionsPosition = [
     { value: "nao informa", label: "não informa" },
@@ -16,20 +24,38 @@ function OptionSelect({ classNamePrefix, options, value, label, onChange,onBlur,
     { value: "Ectomorfo", label: "Ectomorfo" },
     { value: "Mesomorfo", label: "Mesomorfo" },
     { value: "Endomorfo", label: "Endomorfo" },
+  ];
+  const localOptionsGender = [
+    { value: "não informa", label: "não informa"},
+    { value: "Masculino", label: "masculino" },
+    { value: "feminino", label: "feminino" },
+  ];
 
-  ]
+  let selectedoptions;
 
-  const selectedoptions = options === "position" ? localOptionsPosition : localOptionsBiotype
+  switch (options) {
+    case "position":
+      selectedoptions = localOptionsPosition;
+      break;
+
+    case "biotype":
+      selectedoptions = localOptionsBiotype;
+      break;
+
+    default:
+      selectedoptions = localOptionsGender;
+      break;
+  }
 
   const handleChangeSelect = (option) => {
     setSelectOptions(option);
-    if(onChange) {
+    if (onChange) {
       onChange(option);
     }
   };
   return (
     <S.ContainerControlSelect>
-    {label && <label className="Select__label">{label}</label>}
+      {label && <label className="Select__label">{label}</label>}
       <S.ContainerSelect
         classNamePrefix={classNamePrefix}
         options={selectedoptions}
@@ -38,12 +64,13 @@ function OptionSelect({ classNamePrefix, options, value, label, onChange,onBlur,
         onBlur={onBlur}
         className={className}
       />
-      {className === "invalid" ? 
-      (<span style={{ color: "red", fontSize: "12px" }}>
-                Campo obrigatório
-        </span>) : ""
-
-      }
+      {className === "invalid" ? (
+        <span style={{ color: "red", fontSize: "12px" }}>
+          Campo obrigatório
+        </span>
+      ) : (
+        ""
+      )}
     </S.ContainerControlSelect>
   );
 }

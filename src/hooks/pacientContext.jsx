@@ -6,6 +6,7 @@ export function PacientInfoProvider({children}) {
     const [namePacient, setNamePacient] = useState("");
     const [positionPacient, setPositionPacient] = useState("");
     const [biotype,setBiotype] = useState("");
+    const [gender, SetGender] = useState("")
     const [kvp,setKvp] = useState(45);
 
     
@@ -15,7 +16,8 @@ export function PacientInfoProvider({children}) {
         {namePacient,setNamePacient,
         positionPacient, setPositionPacient,
         biotype, setBiotype,
-        kvp, setKvp}}>
+        kvp, setKvp,
+        gender,SetGender}}>
             {children }
         </PacientContext.Provider>
     )

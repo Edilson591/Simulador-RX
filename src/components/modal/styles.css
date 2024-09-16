@@ -17,10 +17,9 @@
     transform: translate(-50%, -50%);
     .modal {
       background-color: aliceblue;
-      width: 40%;
-      min-width: 500px;
+      width: 100%;
+      min-width: 600px;
       padding: 2rem;
-      border: 5px solid #251532;
       z-index: 999;
       h2 {
         padding: 1rem 0;

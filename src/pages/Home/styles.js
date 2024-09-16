@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+export const ContainerHome = styled.div`
+    display: block;
+`
+
 export const Header = styled.div`
   display: flex;
   justify-content: space-between;
@@ -29,13 +33,19 @@ export const Main = styled.div`
     display: flex;
     align-items: center;
     gap: 1rem;
+
+    .avatar-gender {
+      max-width: 100px;
+    }
   }
   .container-patient {
-    max-width: 500px;
+    max-width: 600px;
     padding: 15px;
     height: auto;
     border-radius: 5%;
     background-color: #dedede;
+
+
   }
   .info-patient {
     width: 250px;
@@ -46,7 +56,7 @@ export const Main = styled.div`
 
 export const ContainerDisplay = styled.div`
   .console-display {
-    max-width: 500px;
+    max-width: 600px;
     border-radius: 8px;
     padding: 20px;
     -webkit-box-shadow: inset 11px 9px 47px -6px rgba(135, 132, 135, 1);

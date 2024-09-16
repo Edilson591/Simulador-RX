@@ -8,22 +8,22 @@ import "./styles.css";
 
 Modal.setAppElement("#root");
 
-function ElementModal({ onCloseModal,isOpen}) {
+function ElementModal({ onCloseModal, isOpen }) {
   const [localIsOpen, setLocalIsOpen] = useState(isOpen);
   const [values, setValues] = useState({ namePacient: "" });
   const [isTouch, setIsTouch] = useState(false);
   const [error, setError] = useState("");
   const [valueSelectPosition, setSelectValuePosition] = useState("");
   const [valueSelectBiotype, setSelectValueBiotype] = useState("");
+  const [valueSelectGender, setSelectValueGender] = useState("");
   const [isDisabled, setIsDisable] = useState(false);
-  const { setNamePacient, setPositionPacient, setBiotype } =
+  const { setNamePacient, setPositionPacient, setBiotype, SetGender } =
     useContext(PacientContext);
-  const { namePacient } = values
-
+  const { namePacient } = values;
 
   useEffect(() => {
-    setLocalIsOpen(isOpen)
-  }, [isOpen])
+    setLocalIsOpen(isOpen);
+  }, [isOpen]);
 
   useEffect(() => {
     if (localIsOpen) {
@@ -44,7 +44,7 @@ function ElementModal({ onCloseModal,isOpen}) {
     const { name, value } = event.target;
     setValues((prev) => ({
       ...prev,
-      [name]:value
+      [name]: value,
     }));
   }
 
@@ -67,13 +67,14 @@ function ElementModal({ onCloseModal,isOpen}) {
       setPositionPacient(valueSelectPosition);
       setBiotype(valueSelectBiotype);
       setNamePacient(namePacient);
-      onCloseModal(namePacient, valueSelectPosition, valueSelectBiotype);
+      SetGender(valueSelectGender)
+      onCloseModal(namePacient, valueSelectPosition, valueSelectBiotype,valueSelectGender);
       setIsDisable(false);
       setLocalIsOpen(false);
     } else {
       alert("Digite todas as informações necessárias corretamente");
     }
-    if(isDisabled) {
+    if (isDisabled) {
       setNamePacient("Anônimo");
     }
   }
@@ -82,7 +83,8 @@ function ElementModal({ onCloseModal,isOpen}) {
     return (
       (isDisabled || namePacient.trim() !== "") &&
       valueSelectPosition.length > 1 &&
-      valueSelectBiotype.length > 1
+      valueSelectBiotype.length > 1 && 
+      valueSelectGender.length > 1
     );
   }
 
@@ -92,14 +94,11 @@ function ElementModal({ onCloseModal,isOpen}) {
     setError("");
   };
 
-  const handleChangeSelectPosition = (select) => {
-    setSelectValuePosition(select.value);
-  };
+  const handleChangeSelectPosition = (select) => setSelectValuePosition(select.value);
 
-  const handleChangeSelectBiotype = (select) => {
-    setSelectValueBiotype(select.value);
-    
-  };
+  const handleChangeSelectBiotype = (select) => setSelectValueBiotype(select.value);
+  
+  const handleChangeSelectGender = (select) => setSelectValueGender(select.value);
 
   return (
     <Modal
@@ -108,7 +107,7 @@ function ElementModal({ onCloseModal,isOpen}) {
       contentLabel="formulario do paciente"
       className="modal-content"
       overlayClassName="modal-overlay"
-      aria-hidden="false" 
+      aria-hidden="false"
       aria-modal="true"
     >
       <div className="modal">
@@ -147,6 +146,21 @@ function ElementModal({ onCloseModal,isOpen}) {
                 />
               </div>
             </div>
+            <div className="optionGender">
+              <div className="validgender">
+                <OptionSelect
+                value={valueSelectGender}
+                onChange={handleChangeSelectGender}
+                label="Sexo: "
+                options="gender"
+                classNamePrefix="Select"
+                onBlur={handleBlur}
+                className={
+                  isTouch && !valueSelectGender ? "invalid" : "notInvalid"
+                }
+                />
+              </div>
+            </div>
             <OptionSelect
               value={valueSelectPosition}
               onChange={handleChangeSelectPosition}
@@ -162,7 +176,7 @@ function ElementModal({ onCloseModal,isOpen}) {
               value={valueSelectBiotype}
               onChange={handleChangeSelectBiotype}
               label="Escolha um tipo de corpo: "
-              options="biotipo"
+              options="biotype"
               classNamePrefix="Select"
               onBlur={handleBlur}
               className={

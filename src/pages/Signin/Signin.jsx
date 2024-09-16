@@ -17,16 +17,14 @@ function Signin() {
   const { setAuth, auth } = useContext(AuthContext);
 
   useEffect(() => {
-    const getAuth = localStorage.getItem('auth');
+    const getAuth = localStorage.getItem("auth");
     if (getAuth) {
       setAuth(JSON.parse(getAuth));
     }
-  },[setAuth])
-
+  }, [setAuth]);
 
   function onChange(event) {
     const { name, value } = event.target;
-
 
     setValues({
       ...values,
@@ -40,15 +38,15 @@ function Signin() {
     if (values.email === "exemplo@email.com" && values.password === "123") {
       setAuth(true);
       navagite("/");
-      localStorage.setItem('auth', true);
+      localStorage.setItem("auth", true);
     } else {
       alert("Usuario ou senha esta incorreto");
     }
   }
 
   return (
-    <>
-      <S.Container>
+    <S.Container>
+      <div className="container-shadow">
         <S.Header>
           <div className="content-flex">
             <div className="img-logo">
@@ -62,7 +60,7 @@ function Signin() {
             <div className="tag-login">Login</div>
             <div className="container-input">
               <form onSubmit={handleSubmit}>
-                <label htmlFor="email">Email:</label>
+                <label htmlFor="email"></label>
                 <Input
                   type="email"
                   placeholder="Digite seu email"
@@ -72,8 +70,8 @@ function Signin() {
                   id="email"
                   autoComplete="username"
                 />
-                  
-                <label htmlFor="current-password">Senha:</label>
+
+                <label htmlFor="current-password"></label>
                 <Input
                   type="password"
                   placeholder="Digite sua senha"
@@ -83,17 +81,16 @@ function Signin() {
                   autoComplete="current-password"
                 />
                 <S.ForgotPasswordLink to="/forgotpassoword">
-                    Esqueceu sua senha?
+                  Esqueceu sua senha?
                 </S.ForgotPasswordLink>
 
-                  
                 <Button Type="submit" Text="Entrar" />
               </form>
             </div>
           </div>
         </S.Main>
-      </S.Container>
-    </>
+      </div>
+    </S.Container>
   );
 }
 

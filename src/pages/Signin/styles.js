@@ -2,9 +2,21 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const Container = styled.div`
-  margin: 0 auto;
-  width: 80%;
-  max-width: 1250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  min-width: 100vw;
+  
+  .container-shadow{
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+    text-align: center;
+    width: 450px;
+
+  }
 
   .content-flex {
     display: flex;
@@ -57,7 +69,7 @@ export const Main = styled.div`
 `;
 
 export const ForgotPasswordLink = styled(Link)`
-  color: #351414;
+  color: #b0c4de;
   text-decoration: none;
   cursor: pointer;
   text-align: end;

@@ -1,6 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import Button from "../../components/Button";
-import avatarImg from "../../../src/assets/avatar-img.png";
+import avatarVazio from "../../../src/assets/avatar-vazio.jpg";
+import avatarFeminino from "../../../src/assets/avatar-feminino.png";
+import avatarMasculino from "../../../src/assets/avatar-masculino.png";
 import useLogout from "../../hooks/useLogout";
 import ElementModal from "../../components/modal";
 import ConsolePrincipal from "../../components/controls";
@@ -19,6 +21,9 @@ function Home() {
     setPositionPacient,
     biotype,
     setBiotype,
+    SetGender,
+    gender
+
   } = useContext(PacientContext);
   const [kvps, setKvps] = useState(70);
   const [resetKvp, setResetKvp] = useState(false);
@@ -28,7 +33,7 @@ function Home() {
       console.log(kvps);
     }
   }, [modalOpen]);
-
+  
   const handleLogoutClick = () => {
     setIsVisible(!isVisible);
     handleLogout();
@@ -38,11 +43,12 @@ function Home() {
     setResetKvp(true);
     setTimeout(() => setResetKvp(false), 0);
   };
-
-  const handlePacient = (name, position, biotype) => {
+  
+  const handlePacient = (name, position, biotype, gender) => {
     setNamePacient(name);
     setPositionPacient(position);
     setBiotype(biotype);
+    SetGender(gender);
     setModalOpen(false);
   };
 
@@ -61,6 +67,17 @@ function Home() {
     setModalOpen(true);
   };
 
+  let avatarPacient;
+
+  switch (avatarPacient) {
+    case "":
+      
+      break;
+  
+    default:
+      break;
+  }
+
   return (
     <>
       {!logout ? (
@@ -68,7 +85,7 @@ function Home() {
           <p>Login...</p>
         </S.Container>
       ) : isVisible ? (
-        <S.Container>
+        <M.ContainerHome>
           <M.Header>
             <h1>Simulador de raio x</h1>
             <M.ContainerButton>
@@ -81,7 +98,13 @@ function Home() {
               <div className="container-patient">
                 <div className="section-flex">
                   <div className="patient-avatar">
-                    <img src={avatarImg} alt="Avatar do Paciente" />
+                    <img src={
+                      gender === "masculino" ?
+                      avatarMasculino
+                      : gender === "feminino" 
+                      ? avatarFeminino
+                      : avatarVazio
+                      } className="avatar-gender" alt="Avatar do Paciente" />
                   </div>
                   <div className="info-patient">
                     <h2>
@@ -115,7 +138,7 @@ function Home() {
             </section>
           </M.Main>
           <ElementModal onCloseModal={handlePacient} isOpen={modalOpen} reset={resetKvp} onReset={handleResetKvp} />
-        </S.Container>
+        </M.ContainerHome>
       ) : (
         <S.Container>
           <p>Logout...</p>
