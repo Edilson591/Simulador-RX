@@ -2,11 +2,14 @@ import styled from "styled-components";
 
 export const InputContainer = styled.div`
   padding: 0.8rem 1rem;
+  display: flex;
+  align-items: center;
   border-radius: 20px;
   border-radius: 0.8rem;
   margin-bottom: 1rem;
   background-color: #4d38383d;
   border: 1px solid #00ffff;
+  position: relative;
 
   &.invalid {
     border: 1px solid red;
@@ -19,7 +22,7 @@ export const InputContainer = styled.div`
   }
   &:-webkit-autofill,
   &:-webkit-autofill:focus {
-    background-color: #ffffff !important;
+    background-color: transparent!important;
     border: 2px solid #00ffff !important;
     -webkit-text-fill-color: #000000;
   }
@@ -35,6 +38,9 @@ export const InputContainer = styled.div`
     &::placeholder {
       padding-left: 4px;
     }
+    &:-internal-autofill-selected {
+      background-color: transparent;
+    }
 
     &:focus-within {
       border-color: #00ffff;
@@ -44,5 +50,31 @@ export const InputContainer = styled.div`
         outline: #00ffff;
       }
     }
+    /* Estilos para preenchimento automático */
+  &:-webkit-autofill {
+    background: #4d38383d !important;
+    border: 1px solid #00ffff !important;
+    -webkit-text-fill-color: #fff !important;
+  }
+
+  /* Estilos para campos preenchidos automaticamente e focados */
+  &:-webkit-autofill:focus {
+    background: #4d38383d !important;
+    border: 1px solid #00ffff !important;
+    -webkit-text-fill-color: #fff !important;
+  }
+  }
+`;
+export const ToggleButton = styled.button`
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #00ffff;
+
+  &:hover {
+    color: #007bff;
   }
 `;
