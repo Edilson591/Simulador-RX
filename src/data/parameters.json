@@ -1,0 +1,31 @@
+{
+  "parameters": [
+    {
+      "bodyType": "Magro",
+      "exams": {
+        "punho": { "KVP": 45, "MAS": 2.0, "MA": 100 },
+        "mão": { "KVP": 48, "MAS": 2.5, "MA": 110 },
+        "antebraço": { "KVP": 50, "MAS": 3.0, "MA": 120 },
+        "cotovelo": { "KVP": 52, "MAS": 3.5, "MA": 130 }
+      }
+    },
+    {
+      "bodyType": "Normal",
+      "exams": {
+        "punho": { "KVP": 50, "MAS": 3.0, "MA": 150 },
+        "mão": { "KVP": 52, "MAS": 3.5, "MA": 160 },
+        "antebraço": { "KVP": 55, "MAS": 4.0, "MA": 170 },
+        "cotovelo": { "KVP": 58, "MAS": 4.5, "MA": 180 }
+      }
+    },
+    {
+      "bodyType": "Obeso",
+      "exams": {
+        "punho": { "KVP": 55, "MAS": 4.0, "MA": 200 },
+        "mão": { "KVP": 58, "MAS": 4.5, "MA": 210 },
+        "antebraço": { "KVP": 60, "MAS": 5.0, "MA": 220 },
+        "cotovelo": { "KVP": 65, "MAS": 5.5, "MA": 230 }
+      }
+    }
+  ]
+}

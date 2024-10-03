@@ -16,8 +16,9 @@ export function PacientInfoProvider({children}) {
         {namePacient,setNamePacient,
         positionPacient, setPositionPacient,
         biotype, setBiotype,
+        gender,SetGender,
         kvp, setKvp,
-        gender,SetGender}}>
+        }}>
             {children }
         </PacientContext.Provider>
     )

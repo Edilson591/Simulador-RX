@@ -2,8 +2,6 @@ import styled from "styled-components";
 
 export const InputContainer = styled.div`
   padding: 0.8rem 1rem;
-  display: flex;
-  align-items: center;
   border-radius: 20px;
   border-radius: 0.8rem;
   margin-bottom: 1rem;
@@ -67,9 +65,10 @@ export const InputContainer = styled.div`
 `;
 export const ToggleButton = styled.button`
   position: absolute;
-  right: 10px;
+  right: 30px;
   background: none;
   border: none;
+  transform: translate(50%, 50%);
   cursor: pointer;
   font-size: 18px;
   color: #00ffff;

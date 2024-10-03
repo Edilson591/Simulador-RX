@@ -21,9 +21,9 @@ function OptionSelect({
   ];
   const localOptionsBiotype = [
     { value: "nao informa", label: "não informa" },
-    { value: "Ectomorfo", label: "Ectomorfo" },
-    { value: "Mesomorfo", label: "Mesomorfo" },
-    { value: "Endomorfo", label: "Endomorfo" },
+    { value: "Magro", label: "Magro" },
+    { value: "Normal", label: "Normal" },
+    { value: "Obeso", label: "Obeso" },
   ];
   const localOptionsGender = [
     { value: "não informa", label: "não informa"},

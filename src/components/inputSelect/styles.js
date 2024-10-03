@@ -14,12 +14,19 @@ export const ContainerSelect = styled(Select)`
     &.invalid{
         box-sizing: border-box;
         border: 1px solid red;
+        .Select__control{
+          border: none;
+        }
     }
     
     &:focus-within {
         border-color: transparent;
         outline: transparent;
     }
+    &:focus{
+      border-color: #00bfff;
+    }
+
   .Select__control {
     height: 40px;
     width: 100%;
@@ -33,7 +40,6 @@ export const ContainerSelect = styled(Select)`
   }
 
   .Select__control--is-focused {
-    box-shadow: 0 0 0 1px black;
     outline: none;
   }
 
@@ -42,11 +48,11 @@ export const ContainerSelect = styled(Select)`
   }
 
   .Select__menu {
-    color: #3c3d3e;
+    /* color: #3c3d3e; */
     cursor: pointer;
   }
   .Select__menu-list:hover {
-    /* Cor de fundo das opções dentro do menu */
+    
   }
 
   .Select__option--is-focused {

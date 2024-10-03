@@ -2,19 +2,15 @@ import React, { useState, useContext, useEffect } from "react";
 import * as S from "./styles";
 import logoRadiologia from "../../../src/assets/img-logo.png";
 import { AuthContext } from "../../context/authContext";
-import Button from "../../components/Button";
+import Button from "../../components/button";
 import Input from "../../components/input";
 import { useNavigate } from "react-router-dom";
 
 function Signin() {
   const [values, setValues] = useState({ email: "", password: "" });
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const navagite = useNavigate();
 
   const { setAuth, auth } = useContext(AuthContext);
+  const navigate = useNavigate()
 
   useEffect(() => {
     const getAuth = localStorage.getItem("auth");
@@ -37,7 +33,7 @@ function Signin() {
 
     if (values.email === "exemplo@email.com" && values.password === "123") {
       setAuth(true);
-      navagite("/");
+      navigate("/");
       localStorage.setItem("auth", true);
     } else {
       alert("Usuario ou senha esta incorreto");

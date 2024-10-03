@@ -55,6 +55,7 @@ export const Header = styled.div`
 export const Main = styled.div`
   padding: 10px;
   margin: 0 auto;
+  max-width: 100%;
 
   .container-input {
     width: 100%;

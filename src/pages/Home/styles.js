@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const ContainerHome = styled.div`
-    display: block;
-    padding: 1rem; 
-`
+  display: block;
+  padding: 1rem;
+`;
 
 export const Header = styled.div`
   display: flex;
@@ -16,21 +16,21 @@ export const ContainerButton = styled.div`
   max-width: 200px;
   display: flex;
   gap: 8px;
+
+  button {
+    margin:0;
+  }
 `;
 
 export const Main = styled.div`
   padding: 2rem;
   display: grid;
-  grid-template-columns: repeat(1, 50%);
-  grid-template-rows: repeat(1, 1fr);
   grid-column-gap: 15px;
   grid-row-gap: 15px;
-  border: 1px solid;
 
   @media (max-width: 1024px) {
     grid-template-columns: 1fr;
   }
-
 
   .section-user {
     max-width: 300px;
@@ -39,6 +39,10 @@ export const Main = styled.div`
     display: flex;
     align-items: center;
     gap: 1rem;
+
+    @media (max-width: 678px) {
+      flex-direction: column;
+    }
 
     .avatar-gender {
       max-width: 100px;
@@ -49,9 +53,7 @@ export const Main = styled.div`
     padding: 15px;
     height: auto;
     border-radius: 8px;
-    background-color: #564E58;
-
-
+    background-color: #564e58;
   }
   .info-patient {
     display: flex;
