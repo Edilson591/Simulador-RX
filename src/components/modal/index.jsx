@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
 import { PacientContext } from "../../hooks/pacientContext";
-import Input from "../Input";
-import OptionSelect from "../InputSelect";
+import Input from "../input";
+import OptionSelect from "../inputSelect";
 import svgRemove from "../../assets/icon-remove-item.svg";
-import Button from "../Button";
+import Button from "../button";
 import { GlobalStyles } from "./styles/GlobalStyles";
 import { ContainerModal } from "./styles/styles";
 import useLogout from "../../hooks/useLogout";

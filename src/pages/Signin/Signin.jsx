@@ -2,8 +2,8 @@ import React, { useState, useContext, useEffect } from "react";
 import * as S from "./styles";
 import logoRadiologia from "../../../src/assets/img-logo.png";
 import { AuthContext } from "../../context/authContext";
-import Button from "../../components/Button";
-import Input from "../../components/Input";
+import Button from "../../components/button";
+import Input from "../../components/input";
 import { useNavigate } from "react-router-dom";
 
 function Signin() {
