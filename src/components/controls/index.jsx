@@ -20,7 +20,7 @@ function ConsolePrincipal({ onIncrease, reset }) {
     if (reset) {
       const resetOn = { 
         type: "RESET",
-        payload: {
+        newState: {
           kvp: kvp,
           ma: ma,
           mas: mas

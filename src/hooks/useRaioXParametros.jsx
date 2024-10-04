@@ -89,9 +89,9 @@ const reducer = (state, action) => {
     case "RESET":
       return {
         ...state,
-        kvp: action.payload.kvp,
-        ma: action.payload.ma,
-        mas: action.payload.mas
+        kvp: action.newState.kvp,
+        ma: action.newState.ma,
+        mas: action.newState.mas
       };
     default:
       return state;

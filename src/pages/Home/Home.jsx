@@ -1,11 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
-import Button from "../../components/button";
+import Button from "../../components/Button";
 import avatarVazio from "../../../src/assets/avatar-vazio.png";
 import avatarFeminino from "../../../src/assets/avatar-feminino.png";
 import avatarMasculino from "../../../src/assets/avatar-masculino.png";
 import useLogout from "../../hooks/useLogout";
-import ElementModal from "../../components/modal";
-import ConsolePrincipal from "../../components/controls";
+import ElementModal from "../../components/Modal";
+import ConsolePrincipal from "../../components/Controls";
 import { PacientContext } from "../../hooks/pacientContext";
 import * as S from "../Signin/styles";
 import * as M from "./styles";
