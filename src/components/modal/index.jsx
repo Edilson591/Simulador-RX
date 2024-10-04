@@ -3,7 +3,7 @@ import { PacientContext } from "../../hooks/pacientContext";
 import Input from "../input";
 import OptionSelect from "../inputSelect";
 import svgRemove from "../../assets/icon-remove-item.svg";
-import Button from "../button";
+import Button from "../Button";
 import { GlobalStyles } from "./styles/GlobalStyles";
 import { ContainerModal } from "./styles/styles";
 import useLogout from "../../hooks/useLogout";
