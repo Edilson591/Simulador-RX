@@ -1,5 +1,8 @@
-import { createContext, useContext, useEffect, useReducer, useState} from "react";
-import { useViability } from "./useViability";
+import {
+  createContext,
+  useContext,
+  useReducer,
+} from "react";
 
 const RaioXContext = createContext();
 
@@ -9,79 +12,62 @@ const initialState = {
   mas: 10,
 };
 
+const calculeStep = (type, value) => {
+  switch (type) {
+    case "kvp":
+      if (value >= 45 && value < 70) return 3;
+      if (value >= 70 && value < 120) return 4;
+      return 1;
+    case "ma":
+      if (value >= 0 && value <= 100) return 20;
+      if (value > 100) return 100;
+      return 1;
+    case "mas":
+      if (value >= 0 && value < 10) return 2;
+      if (value >= 10 && value < 50) return 10;
+      if (value >= 50) return 20;
+      return 1;
+    default:
+      return 1;
+  }
+};
+
 const reducer = (state, action) => {
   let step = 0;
 
   switch (action.type) {
     case "INCREASE_KVP":
-      if (state.kvp >= 45 && state.kvp < 70) {
-        step = 3;
-      } else if (state.kvp >= 70 && state.kvp < 120) {
-        step = 4;
-      }
-      if (state.kvp + step > 120) {
-        return state;
-      }
+      step = calculeStep("kvp", state.kvp);
       return {
         ...state,
-        kvp: state.kvp + step,
+        kvp: Math.min(120, state.kvp + step),
       };
     case "DECREASE_KVP":
-      if (state.kvp >= 45 && state.kvp < 70) {
-        step = 3;
-      } else if (state.kvp >= 70 && state.kvp <= 120) {
-        step = 4;
-      }
+      step = calculeStep("kvp", state.kvp);
       return {
         ...state,
         kvp: Math.max(45, state.kvp - step),
       };
     case "INCREASE_MA":
-      if (state.ma >= 0 && state.ma <= 100) {
-        step = 20;
-      } else if (state.ma > 100) {
-        step = 100;
-      }
-      if (state.ma + step > 500) {
-        return state;
-      }
+      step = calculeStep("ma", state.ma);
       return {
         ...state,
-        ma: state.ma + step,
+        ma: Math.min(500, state.ma + step),
       };
     case "DECREASE_MA":
-      if (state.ma >= 0 && state.ma <= 100) {
-        step = 20;
-      } else if (state.ma > 100) {
-        step = 100;
-      }
+      step = calculeStep("ma", state.ma);
       return {
         ...state,
         ma: Math.max(50, state.ma - step),
       };
     case "INCREASE_MAS":
-      if (state.mas >= 0 && state.mas < 10) {
-        step = 2;
-      } else if (state.mas >= 10 && state.mas < 50) {
-        step = 10;
-      } else if (state.mas >= 50) {
-        step = 20;
-      }
-      if (state.mas + step > 110) {
-        return state;
-      }
+      step = calculeStep("mas", state.mas);
       return {
         ...state,
-        mas: state.mas + step,
+        mas: Math.min(100, state.mas + step),
       };
     case "DECREASE_MAS":
-      if (state.mas >= 0 && state.mas < 10) {
-        step = 2;
-      } else if (state.mas >= 10 && state.mas <= 50) {
-        step = 10;
-      } else if (state.mas > 50) {
-        step = 20;
-      }
+      step = calculeStep("mas", state.mas)
       return {
         ...state,
         mas: Math.max(2, state.mas - step),
@@ -91,7 +77,7 @@ const reducer = (state, action) => {
         ...state,
         kvp: action.newState.kvp,
         ma: action.newState.ma,
-        mas: action.newState.mas
+        mas: action.newState.mas,
       };
     default:
       return state;
@@ -101,13 +87,8 @@ const reducer = (state, action) => {
 export const RaioXParametrosProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  
-
-
-
-
   return (
-    <RaioXContext.Provider value={{ state, dispatch}}>
+    <RaioXContext.Provider value={{ state, dispatch }}>
       {children}
     </RaioXContext.Provider>
   );

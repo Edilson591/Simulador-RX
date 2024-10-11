@@ -21,7 +21,7 @@ function Home() {
     setPositionPacient,
     biotype,
     setBiotype,
-    SetGender,
+    setGender,
     gender,
     setKvp,
   } = useContext(PacientContext);
@@ -44,7 +44,7 @@ function Home() {
     setNamePacient(name);
     setPositionPacient(position);
     setBiotype(biotype);
-    SetGender(gender);
+    setGender(gender);
     setModalOpen(false);
     setResetParaments(true);
   };

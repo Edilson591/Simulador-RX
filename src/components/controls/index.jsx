@@ -13,7 +13,7 @@ function ConsolePrincipal({ onIncrease, reset }) {
     onIncrease(state.kvp);
     onIncrease(state.ma);
     onIncrease(state.mas);
-    console.log(kvp,ma,mas)
+
   }, [state, onIncrease]);
 
   useEffect(() => {

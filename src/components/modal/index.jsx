@@ -7,21 +7,28 @@ import Button from "../Button";
 import { GlobalStyles } from "./styles/GlobalStyles";
 import { ContainerModal } from "./styles/styles";
 import useLogout from "../../hooks/useLogout";
-
+import { validateName, isFormValid } from "../../hooks/useValidationForm";
+import { useChangeName } from "../../hooks/useChangeName";
 
 ContainerModal.setAppElement("#root");
 
 function ElementModal({ onCloseModal, isOpen }) {
-  const [values, setValues] = useState({ namePacient: "" });
   const [isTouch, setIsTouch] = useState(false);
-  const [error, setError] = useState("");
   const [valueSelectPosition, setSelectValuePosition] = useState("");
   const [valueSelectBiotype, setSelectValueBiotype] = useState("");
   const [valueSelectGender, setSelectValueGender] = useState("");
   const [isDisabled, setIsDisable] = useState(false);
-  const { setNamePacient, setPositionPacient, setBiotype, SetGender } =
+  const { setNamePacient, setPositionPacient, setBiotype, setGender } =
     useContext(PacientContext);
-  const { namePacient } = values;
+  // Mudança no nome do paciente
+  const { onChange, namePacient, setValues } = useChangeName();
+
+  // Validando informações dos inputs
+  const { error, setError, validateData } = validateName(
+    namePacient,
+    isDisabled
+  );
+
   const [logout, handleLogout] = useLogout();
 
   useEffect(() => {
@@ -40,26 +47,9 @@ function ElementModal({ onCloseModal, isOpen }) {
     setError("");
   }
 
-  function onChange(event) {
-    const { name, value } = event.target;
-    setValues((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  }
-
   function handleBlur() {
     setIsTouch(true);
-    validateName();
-  }
-
-  function validateName() {
-    const trimmedName = namePacient.trim();
-    if (trimmedName === "" && !isDisabled) {
-      setError("Campo obrigatório");
-    } else {
-      setError("");
-    }
+    validateData();
   }
 
   function closeModal() {
@@ -67,7 +57,7 @@ function ElementModal({ onCloseModal, isOpen }) {
       setPositionPacient(valueSelectPosition);
       setBiotype(valueSelectBiotype);
       setNamePacient(namePacient);
-      SetGender(valueSelectGender);
+      setGender(valueSelectGender);
       onCloseModal(
         namePacient,
         valueSelectPosition,
@@ -76,7 +66,7 @@ function ElementModal({ onCloseModal, isOpen }) {
       );
     } else {
       alert("Digite todas as informações necessárias corretamente");
-      handleBlur() 
+      handleBlur();
     }
     if (isDisabled) {
       setNamePacient("Anônimo");
@@ -108,7 +98,6 @@ function ElementModal({ onCloseModal, isOpen }) {
 
   const handleChangeSelectGender = (select) =>
     setSelectValueGender(select.value);
-
 
   return (
     <>
@@ -202,13 +191,13 @@ function ElementModal({ onCloseModal, isOpen }) {
                 }
               />
             </div>
+            <Button
+              onClick={closeModal}
+              Type="button"
+              Text="Verificar informações"
+              className="button-modal"
+            />
           </form>
-          <Button
-            onClick={closeModal}
-            Type="button"
-            Text="Verificar informações"
-            className="button-modal"
-          />
         </div>
       </ContainerModal>
     </>

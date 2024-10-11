@@ -1,7 +1,96 @@
 import { useState } from "react"
+import { validateName,isFormValid } from "../../hooks/useValidationForm";
 
-export const FormModal = () => {
-    const [values,setValues] = useState({name:""});
+export const FormModal = ({resetForm,handleBlur}) => {
+  const [values, setValues] = useState({ namePacient: "" });
+  const [isTouch, setIsTouch] = useState(false);
+  const [error, setError] = useState("");
+  const [valueSelectPosition, setSelectValuePosition] = useState("");
+  const [valueSelectBiotype, setSelectValueBiotype] = useState("");
+  const [valueSelectGender, setSelectValueGender] = useState("");
+  const [isDisabled, setIsDisable] = useState(false);
+  const { namePacient } = values;
+  const { error: validadeError, validateData} = validateName(namePacient,isDisabled)
+  
+  function resetForm() {
+    setValues({ namePacient: "" });
+    setSelectValuePosition("");
+    setSelectValueBiotype("");
+    setSelectValueGender("");
+    setIsDisable(false);
+    setIsTouch(false);
+    setError("");
+  }
+
+  function onChange(event) {
+    const { name, value } = event.target;
+    setValues((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }
+
+  function handleBlur() {
+    setIsTouch(true);
+    validateName();
+  }
+
+  // function validateName() {
+  //   const trimmedName = namePacient.trim();
+  //   if (trimmedName === "" && !isDisabled) {
+  //     setError("Campo obrigatório");
+  //   } else {
+  //     setError("");
+  //   }
+  // }
+
+  function closeModal() {
+    if (isFormValid()) {
+      setPositionPacient(valueSelectPosition);
+      setBiotype(valueSelectBiotype);
+      setNamePacient(namePacient);
+      SetGender(valueSelectGender);
+      onCloseModal(
+        namePacient,
+        valueSelectPosition,
+        valueSelectBiotype,
+        valueSelectGender
+      );
+    } else {
+      alert("Digite todas as informações necessárias corretamente");
+      handleBlur() 
+    }
+    if (isDisabled) {
+      setNamePacient("Anônimo");
+    }
+  }
+
+  function isFormValid() {
+    return (
+      (isDisabled || namePacient.trim() !== "") &&
+      valueSelectPosition.length > 1 &&
+      valueSelectBiotype.length > 1 &&
+      valueSelectGender.length > 1
+    );
+  }
+
+  const handleCheckbox = () => {
+    setIsDisable((prev) => !prev);
+    if (!isDisabled) {
+      setValues({ namePacient: "" });
+      setError("");
+    }
+  };
+
+  const handleChangeSelectPosition = (select) =>
+    setSelectValuePosition(select.value);
+
+  const handleChangeSelectBiotype = (select) =>
+    setSelectValueBiotype(select.value);
+
+  const handleChangeSelectGender = (select) =>
+    setSelectValueGender(select.value);
+
 
     return (
         <form onSubmit={(e) => e.preventDefault()}>
@@ -75,6 +164,12 @@ export const FormModal = () => {
             }
           />
         </div>
+        <Button
+            onClick={closeModal}
+            Type="button"
+            Text="Verificar informações"
+            className="button-modal"
+          />
       </form>
     )
 }
