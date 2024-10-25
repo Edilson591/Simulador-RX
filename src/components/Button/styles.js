@@ -13,6 +13,9 @@ export const Button = styled.button`
     font-weight: 600;
     margin-bottom: 1rem;
     transition: background-color .5s ease;
+    @media (max-width: 768px) {
+        font-size: 1rem;
+    }
 
     &:hover {
         background-color: #00bfff;

@@ -35,15 +35,6 @@ export const FormModal = ({resetForm,handleBlur}) => {
     validateName();
   }
 
-  // function validateName() {
-  //   const trimmedName = namePacient.trim();
-  //   if (trimmedName === "" && !isDisabled) {
-  //     setError("Campo obrigatório");
-  //   } else {
-  //     setError("");
-  //   }
-  // }
-
   function closeModal() {
     if (isFormValid()) {
       setPositionPacient(valueSelectPosition);

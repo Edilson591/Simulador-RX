@@ -1,17 +1,27 @@
 import styled from "styled-components";
+import { Button } from "../Button/styles";
 
 export const ContainerControl = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-direction: column;
   gap: 1rem;
   
 
   @media (max-width: 678px) {
     flex-direction: column;
-    
     align-items: flex-start;
-    width: 160px;
+
+    .controls {
+      flex-direction: column;
+    }
+  }
+
+  .controls {
+    display: flex;
+    width: 100%;
+    gap: 15px;
   }
 
   .control-painel {
@@ -49,3 +59,7 @@ export const ContainerControl = styled.div`
     }
   }
 `;
+
+export const ButtonDisplay = styled(Button)`
+  flex-wrap: wrap;
+`

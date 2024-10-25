@@ -10,6 +10,11 @@ export const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 1rem 0rem;
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 16px;
+    }
+  }
 `;
 
 export const ContainerButton = styled.div`
@@ -23,7 +28,6 @@ export const ContainerButton = styled.div`
 `;
 
 export const Main = styled.div`
-  padding: 2rem;
   display: grid;
   grid-column-gap: 15px;
   grid-row-gap: 15px;

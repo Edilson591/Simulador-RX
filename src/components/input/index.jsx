@@ -16,6 +16,10 @@ function Input({
 }) {
   const [showPassword, setShowPassword] = useState(false);
 
+  
+  const inputType = type === "password";
+  const displayType = type === "password" ? (showPassword ? "text" : "password") : type;
+
   const toggleButtonVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -24,13 +28,13 @@ function Input({
       <input
         value={value}
         onChange={onChange}
-        type={type === "password" ? (showPassword ? "text" : "password") : type}
+        type={displayType}
         name={name}
         disabled={disabled}
         placeholder={placeholder}
         autoComplete={autoComplete}
         onBlur={onBlur}
-      />{type === "password" && (
+      />{inputType && (
         <S.ToggleButton onClick={toggleButtonVisibility} type="button">
         {showPassword ? "🙈" : "👁️"}
       </S.ToggleButton>)}
